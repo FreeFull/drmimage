@@ -3,6 +3,7 @@ authors = ["Filip Szczepański <jazz2rulez@gmail.com>"]
 name = "drmimage"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 
 [dependencies]
 drm = "0.14.1"
