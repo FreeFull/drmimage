@@ -1,0 +1,10 @@
+[package]
+authors = ["Filip Szczepański <jazz2rulez@gmail.com>"]
+name = "drmimage"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+drm = "0.14.1"
+eyre = "0.6.12"
+image = "0.25.5"
