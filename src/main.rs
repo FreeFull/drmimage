@@ -1,5 +1,6 @@
 use drm::buffer::{Buffer, DrmFourcc};
 use drm::control::{connector, crtc, plane, Device as _, ResourceHandles};
+use drm::Device;
 use eyre::{bail, Result};
 use image::Rgba;
 use std::{
@@ -14,7 +15,7 @@ fn display<P: AsRef<Path>>(path: P) -> Result<()> {
         bail!("Failed to open any card, terminating")
     };
     // Make sure we have master
-    //card.acquire_master_lock()?;
+    card.acquire_master_lock()?;
     let resources = card.resource_handles()?;
     let Some(connector) = resources.connectors().iter().find_map(|&handle| {
         let connector = card.get_connector(handle, false).ok()?;
@@ -63,6 +64,7 @@ fn display<P: AsRef<Path>>(path: P) -> Result<()> {
         (0, 0, buffer.size().0, buffer.size().1),
         (0, 0, buffer.size().0 << 16, buffer.size().1 << 16),
     )?;
+    card.release_master_lock()?;
     eprintln!("Ctrl+C to quit");
     loop {
         std::thread::park();
